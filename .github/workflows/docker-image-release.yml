@@ -1,0 +1,18 @@
+name: Tag Release Docker Image
+
+on:
+  release:
+    types: ["published"]
+
+jobs:
+  publish-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build House Bot Image
+        uses: VaultVulp/gp-docker-action@1.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          image-name: house-bot
+          extract-git-tag: true
+          dockerfile: Dockerfile
