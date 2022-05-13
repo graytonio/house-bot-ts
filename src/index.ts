@@ -19,6 +19,7 @@ function parseENV(): Config | void {
   const DISCORD_ID = process.env["DISCORD_ID"];
   const MONGO_URI = process.env["MONGO_URI"];
   const MONGO_DB_NAME = process.env["MONGO_DB_NAME"];
+  const ENV = process.env["ENV"] || "production";
 
   if (!DISCORD_TOKEN) return fatalError("DISCORD_TOKEN must be defined");
   if (!DISCORD_ID) return fatalError("DISCORD_ID must be defined");
@@ -30,6 +31,7 @@ function parseENV(): Config | void {
     DISCORD_ID,
     MONGO_URI,
     MONGO_DB_NAME,
+    ENV,
   };
 }
 
@@ -108,6 +110,6 @@ async function main() {
   if (!db) return;
 
   const handlers = loadCommandHandlers({ handler_params: { db } });
-  await registerEventHandlers({ handlers: handlers, client_id: config.DISCORD_ID, token: config.DISCORD_TOKEN, dev_guild: "379815890276843521", dev: true });
+  await registerEventHandlers({ handlers: handlers, client_id: config.DISCORD_ID, token: config.DISCORD_TOKEN, dev_guild: "379815890276843521", dev: config.ENV === "development" });
 }
 main();

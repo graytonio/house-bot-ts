@@ -7,6 +7,7 @@ interface Config {
   DISCORD_ID: string;
   MONGO_URI: string;
   MONGO_DB_NAME: string;
+  ENV: string;
 }
 
 interface Database {
