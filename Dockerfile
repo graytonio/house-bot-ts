@@ -13,7 +13,7 @@ FROM node:17
 WORKDIR /app
 COPY package.json ./
 COPY yarn.lock ./
-COPY --from=builder /app/build/* ./
+COPY --from=builder /app/build/ ./
 
 RUN yarn install
 
